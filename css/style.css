@@ -1,0 +1,28 @@
+@import url("reset.css");
+@import url("fonts.css");
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #EDFF40 rgba(255, 255, 255, 0.08);
+    scrollbar-gutter: stable;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Craftwork Grotesk", sans-serif;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+    background: #1D1D21;
+    overflow-x: hidden;
+}
+
+html {
+    background: #1D1D21;
+}
+
