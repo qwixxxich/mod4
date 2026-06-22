@@ -138,6 +138,7 @@ main {
 .ring:nth-child(6) { z-index: 30; }
 .ring:nth-child(7) { z-index: 20; }
 .ring:nth-child(8) { z-index: 10; }
+.ring:nth-child(9) { visibility: hidden; }
 
 .rings-area {
     position: relative;

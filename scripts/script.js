@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const rings = document.querySelectorAll(".rings .ring");
         const movers = [];
         document.querySelectorAll(".orbits .orbit").forEach((orbit, i) => {
-            const ring = rings[i + 1];
+            const ring = rings[i];
+            const labelRing = rings[i + 1];
             const planet = orbit.querySelector(".planet");
             const label = orbit.querySelector(".orbit__label");
             if (!ring || !planet) {
@@ -22,10 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (label) label.style.display = "none";
                 return;
             }
+            if (label && !labelRing) label.style.display = "none";
             movers.push({
                 ring,
+                labelRing,
                 planet,
-                label,
+                label: labelRing ? label : null,
                 ringZ: parseInt(getComputedStyle(ring).zIndex, 10) || 0,
                 angle: Math.random() * Math.PI * 2,
                 speed: 0.03 + Math.random() * 0.04,
@@ -47,8 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 m.planet.style.top = `${cy + (r.height / 2) * sin}px`;
                 m.planet.style.zIndex = m.ringZ + (sin >= 0 ? 5 : -5);
                 if (m.label) {
-                    m.label.style.left = `${cx}px`;
-                    m.label.style.top = `${cy}px`;
+                    const lr = m.labelRing.getBoundingClientRect();
+                    m.label.style.left = `${lr.left - area.left + lr.width / 2}px`;
+                    m.label.style.top = `${lr.top - area.top + lr.height / 2}px`;
                 }
             }
             requestAnimationFrame(tickPlanets);
