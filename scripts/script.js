@@ -93,14 +93,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const from = mobile
                 ? { cx: vw * 0.5, cy: vh * 0.26, w: vh * 0.5 }
                 : { cx: vw * 0.02, cy: vh * 0.5, w: vh * 0.72 };
-            const to = { cx: vw * 0.5, cy: vh * 0.5, w: vw * 0.48 };
+            const to = { cx: vw * 0.5, cy: vh * 0.62, w: vw * 0.48 };
 
             const start = cardsSection.offsetTop;
             const end = sceneSection.offsetTop;
             const y = window.scrollY;
             const p = Math.max(0, Math.min(1, (y - start) / (end - start)));
             const beforeStart = y < start;
-            const completed = y > end;
+            const completed = y >= end;
 
             const w = completed ? to.w : lerp(from.w, to.w, p);
             const cx = completed ? to.cx : lerp(from.cx, to.cx, p);
@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         ? end - start + cy - w / 2
                         : cy - w / 2
             }px`;
+            moon.style.zIndex = completed ? "2" : "-1";
             moon.style.opacity = "1";
             moon.style.transform = `rotate(${completed ? 0 : 180 * (1 - p)}deg)`;
             if (moonText) moonText.style.opacity = `${completed ? 1 : p}`;
@@ -123,5 +124,14 @@ document.addEventListener("DOMContentLoaded", () => {
         placeMoon();
         window.addEventListener("scroll", placeMoon, { passive: true });
         window.addEventListener("resize", placeMoon);
+
+        sceneSection.querySelectorAll(".button").forEach((button) => {
+            button.addEventListener("mouseenter", () => {
+                moon.classList.add("is-highlighted");
+            });
+            button.addEventListener("mouseleave", () => {
+                moon.classList.remove("is-highlighted");
+            });
+        });
     }
 });
