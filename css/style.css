@@ -33,8 +33,9 @@ main {
 }
 
 #first {
-    height: 100vh;
+    height: 101vh;
     overflow: hidden;
+    gap: 15px;
 }
 
 .navbar {
@@ -66,7 +67,6 @@ main {
     align-items: stretch;
     justify-content: space-between;
     width: 100%;
-    margin-block: auto;
     padding: 0 24px;
 }
 
@@ -94,7 +94,7 @@ main {
 .welcome-video {
     display: block;
     position: relative;
-    top: 25px;
+    top: -1.5vh;
     width: auto;
     height: 650px;
 }
@@ -102,46 +102,42 @@ main {
 .welcome__meta {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-self: center;
+    gap: 35vh;
     flex-shrink: 0;
     width: 18vh;
     color: #fff;
     font-size: 1.8vh;
-    text-align: right;
-}
-
-.welcome__meta :nth-child(2),
-.welcome__meta :last-child {
-    text-align: left;
+    text-align: center;
 }
 
 .rings {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    width: 66.6vh;
+    height: 89.6vh;
 }
 
 .ring {
+    position: absolute;
+    left: 0;
     display: block;
     width: auto;
     height: 16vh;
 }
 
-.ring + .ring {
-    margin-top: -6.8vh;
-}
-
-.ring:nth-child(1) { z-index: 80; }
-.ring:nth-child(2) { z-index: 70; }
-.ring:nth-child(3) { z-index: 60; }
-.ring:nth-child(4) { z-index: 50; }
-.ring:nth-child(5) { z-index: 40; }
-.ring:nth-child(6) { z-index: 30; }
-.ring:nth-child(7) { z-index: 20; }
-.ring:nth-child(8) { z-index: 10; }
-.ring:nth-child(9) { visibility: hidden; }
+.ring:nth-child(1) { top: 0;      z-index: 80; }
+.ring:nth-child(2) { top: 9.2vh;  z-index: 70; }
+.ring:nth-child(3) { top: 18.4vh; z-index: 60; }
+.ring:nth-child(4) { top: 27.6vh; z-index: 50; }
+.ring:nth-child(5) { top: 36.8vh; z-index: 40; }
+.ring:nth-child(6) { top: 46vh;   z-index: 30; }
+.ring:nth-child(7) { top: 55.2vh; z-index: 20; }
+.ring:nth-child(8) { top: 64.4vh; z-index: 10; }
+.ring:nth-child(9) { top: 73.6vh; visibility: hidden; }
 
 .rings-area {
     position: relative;
+    top: 5vh;
 }
 
 .orbits {
@@ -192,23 +188,23 @@ main {
     z-index: 200;
     top: 0;
     left: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
     transform: translate(-50%, -45%);
 }
 
 .bigplanet .planet__stats {
-    position: static;
-    transform: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
 }
 
 .bigplanet__dot {
+    display: block;
     width: 89px;
     height: 89px;
     border-radius: 50%;
-    background: #f4d03f;
+    background: #FF9D00;
 }
 
 .scene {
