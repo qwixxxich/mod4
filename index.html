@@ -192,6 +192,30 @@
         </div>
     </section>
     <section class="section" id="second">
+        <h2 class="cards__title">Самые популярные вкусы</h2>
+        <div class="cards">
+            <article class="card card--1">
+                <span class="card__rank">#1</span>
+                <video class="card__img" src="assets/img/welcome-screen/tube.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
+                <p class="card__name">Кит-кат мороженное</p>
+                <p class="card__price">450р</p>
+            </article>
+            <article class="card card--2">
+                <span class="card__rank">#2</span>
+                <video class="card__img" src="assets/img/welcome-screen/tube.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
+                <p class="card__name">Мохито клубничный</p>
+                <p class="card__price">450р</p>
+            </article>
+            <article class="card card--3">
+                <span class="card__rank">#3</span>
+                <video class="card__img" src="assets/img/welcome-screen/tube.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
+                <p class="card__name">Стейк-рибай</p>
+                <p class="card__price">450р</p>
+            </article>
+        </div>
+        <button class="all-tastes" type="button">Все вкусы</button>
+    </section>
+    <section class="section" id="third">
         <div class="scene">
             <img
                 class="timeline"
@@ -199,21 +223,6 @@
                 alt=""
                 aria-hidden="true"
             >
-            <div class="moon-scene">
-                <img
-                    class="moon-background"
-                    src="assets/img/moon-anim/moon.png"
-                    alt=""
-                    aria-hidden="true"
-                >
-                <img
-                    class="moon-animation"
-                    id="moon-animation"
-                    src="assets/img/moon-anim/moving_to_left/1.svg"
-                    alt=""
-                    aria-hidden="true"
-                >
-            </div>
             <div class="buttons">
                 <button class="button" type="button">Читать новость</button>
                 <div class="buttons__divider"></div>
@@ -222,6 +231,19 @@
         </div>
     </section>
 </main>
+<div class="moon" id="moon" aria-hidden="true">
+    <img
+        class="moon-background"
+        src="assets/img/moon-anim/moon.png"
+        alt=""
+    >
+    <img
+        class="moon-animation"
+        id="moon-animation"
+        src="assets/img/moon-anim/moving_to_left/1.svg"
+        alt=""
+    >
+</div>
 <script src="scripts/script.js"></script>
 </body>
 </html>

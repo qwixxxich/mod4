@@ -15,7 +15,6 @@ html {
 }
 
 body {
-    background: #000;
     overflow-x: hidden;
 }
 
@@ -220,39 +219,11 @@ main {
     transform: translateY(12.85%);
 }
 
-.moon-scene {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 64%;
-    transform: translate(-50%, -50%);
-    animation: moon-scene-rotate 3s ease-in-out infinite alternate;
-}
-
-.moon-scene::before {
-    content: "";
-    position: absolute;
+.moon {
+    position: fixed;
     z-index: -1;
-    top: 50%;
-    left: 50%;
-    width: 82%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: #fff;
-    filter: blur(55px);
     opacity: 0;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.3s ease;
-}
-
-.scene:has(.buttons:hover) .moon-scene::before {
-    opacity: 0.9;
-}
-
-.moon-background {
-    display: block;
-    width: 100%;
-    height: auto;
+    pointer-events: none;
 }
 
 .moon-animation {
@@ -261,8 +232,16 @@ main {
     left: 50%;
     width: 102%;
     height: auto;
+    opacity: 0;
     transform: translate(-50%, -50%);
 }
+
+.moon-background {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 
 .buttons {
     position: absolute;
@@ -297,7 +276,91 @@ main {
     background: #fff;
 }
 
-@keyframes moon-scene-rotate {
-    from { transform: translate(-50%, -50%) rotate(-5deg); }
-    to   { transform: translate(-50%, -50%) rotate(5deg); }
+#second,
+#third {
+    min-height: 100vh;
+    justify-content: center;
+}
+
+#second {
+    gap: 6vh;
+    padding: 6vh 24px;
+}
+
+.cards__title {
+    color: #fff;
+    font-size: 36px;
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 240px;
+    padding: 7px 44px 14px;
+    border: 2px solid #fff;
+    border-radius: 40px;
+    color: #fff;
+}
+
+.card--1 { transform: translateY(4vh); }
+.card--2 { transform: translateY(0); }
+.card--3 { transform: translateY(20vh); }
+
+.card__rank {
+    position: absolute;
+    top: -36px;
+    left: -24px;
+    transform: rotate(-26deg);
+    font-size: 36px;
+}
+
+.card__img {
+    display: block;
+    width: 105px;
+    height: auto;
+    transform: rotate(8deg);
+}
+
+.card__name {
+    font-size: 25px;
+    text-align: center;
+}
+
+.card__price {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.all-tastes {
+    padding: 10px 86px;
+    border: 2px solid #fff;
+    border-radius: 16px;
+    background: transparent;
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card--1,
+    .card--2,
+    .card--3 {
+        transform: none;
+    }
 }

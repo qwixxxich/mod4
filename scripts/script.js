@@ -60,27 +60,63 @@ document.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(tickPlanets);
     }
 
-    const animation = document.querySelector("#moon-animation");
-    const frameDuration = 75;
+    const moon = document.getElementById("moon");
+    const moonText = document.getElementById("moon-animation");
+    const cardsSection = document.getElementById("second");
+    const sceneSection = document.getElementById("third");
 
-    const frames = [];
-    const parts = [
-        { path: "assets/img/moon-anim/moving_to_left", count: 12 },
-        { path: "assets/img/moon-anim/moving_to_right", count: 11 },
-    ];
+    // Анимация текста вокруг луны (включается только на подлёте к сцене)
+    if (moonText) {
+        const frames = [];
+        const parts = [
+            { path: "assets/img/moon-anim/moving_to_left", count: 12 },
+            { path: "assets/img/moon-anim/moving_to_right", count: 11 },
+        ];
+        for (const { path, count } of parts) {
+            for (let i = 1; i <= count; i++) frames.push(`${path}/${i}.svg`);
+            for (let i = count - 1; i >= 1; i--) frames.push(`${path}/${i}.svg`);
+        }
+        for (const frame of frames) new Image().src = frame;
 
-    for (const { path, count } of parts) {
-        for (let i = 1; i <= count; i++) frames.push(`${path}/${i}.svg`);
-        for (let i = count - 1; i >= 1; i--) frames.push(`${path}/${i}.svg`);
+        let current = 0;
+        setInterval(() => {
+            current = (current + 1) % frames.length;
+            moonText.src = frames[current];
+        }, 75);
     }
 
-    for (const frame of frames) {
-        new Image().src = frame;
-    }
+    if (moon && cardsSection && sceneSection) {
+        const lerp = (a, b, t) => a + (b - a) * t;
+        const placeMoon = () => {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const mobile = vw < 768;
+            // Состояние в секции карточек (луна слева/сверху) и в секции со сценой (по центру)
+            const from = mobile
+                ? { cx: vw * 0.5, cy: vh * 0.26, w: vh * 0.5 }
+                : { cx: vw * 0.02, cy: vh * 0.5, w: vh * 0.72 };
+            const to = { cx: vw * 0.5, cy: vh * 0.5, w: vw * 0.48 };
 
-    let current = 0;
-    setInterval(() => {
-        current = (current + 1) % frames.length;
-        animation.src = frames[current];
-    }, frameDuration);
+            const start = cardsSection.offsetTop;
+            const end = sceneSection.offsetTop;
+            const y = window.scrollY;
+            const inRange = y > start - vh * 0.7 && y < end + vh * 0.9;
+            const p = Math.max(0, Math.min(1, (y - start) / (end - start)));
+
+            const w = lerp(from.w, to.w, p);
+            const cx = lerp(from.cx, to.cx, p);
+            const cy = lerp(from.cy, to.cy, p);
+            moon.style.width = `${w}px`;
+            moon.style.left = `${cx - w / 2}px`;
+            moon.style.top = `${cy - w / 2}px`;
+            moon.style.opacity = inRange ? "1" : "0";
+            // На карточках луна повёрнута на 180° (светлой стороной), при движении плавно доворачивается
+            moon.style.transform = `rotate(${180 * (1 - p)}deg)`;
+            // Текст-анимация проявляется по мере подлёта к сцене
+            if (moonText) moonText.style.opacity = `${p}`;
+        };
+        placeMoon();
+        window.addEventListener("scroll", placeMoon, { passive: true });
+        window.addEventListener("resize", placeMoon);
+    }
 });
