@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const cardsSection = document.getElementById("second");
     const sceneSection = document.getElementById("third");
 
-    // Анимация текста вокруг луны (включается только на подлёте к сцене)
     if (moonText) {
         const frames = [];
         const parts = [
@@ -91,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const vw = window.innerWidth;
             const vh = window.innerHeight;
             const mobile = vw < 768;
-            // Состояние в секции карточек (луна слева/сверху) и в секции со сценой (по центру)
             const from = mobile
                 ? { cx: vw * 0.5, cy: vh * 0.26, w: vh * 0.5 }
                 : { cx: vw * 0.02, cy: vh * 0.5, w: vh * 0.72 };
@@ -100,20 +98,27 @@ document.addEventListener("DOMContentLoaded", () => {
             const start = cardsSection.offsetTop;
             const end = sceneSection.offsetTop;
             const y = window.scrollY;
-            const inRange = y > start - vh * 0.7 && y < end + vh * 0.9;
             const p = Math.max(0, Math.min(1, (y - start) / (end - start)));
+            const beforeStart = y < start;
+            const completed = y > end;
 
-            const w = lerp(from.w, to.w, p);
-            const cx = lerp(from.cx, to.cx, p);
-            const cy = lerp(from.cy, to.cy, p);
+            const w = completed ? to.w : lerp(from.w, to.w, p);
+            const cx = completed ? to.cx : lerp(from.cx, to.cx, p);
+            const cy = completed ? to.cy : lerp(from.cy, to.cy, p);
+
+            moon.style.position = beforeStart || completed ? "absolute" : "fixed";
             moon.style.width = `${w}px`;
             moon.style.left = `${cx - w / 2}px`;
-            moon.style.top = `${cy - w / 2}px`;
-            moon.style.opacity = inRange ? "1" : "0";
-            // На карточках луна повёрнута на 180° (светлой стороной), при движении плавно доворачивается
-            moon.style.transform = `rotate(${180 * (1 - p)}deg)`;
-            // Текст-анимация проявляется по мере подлёта к сцене
-            if (moonText) moonText.style.opacity = `${p}`;
+            moon.style.top = `${
+                beforeStart
+                    ? cy - w / 2
+                    : completed
+                        ? end - start + cy - w / 2
+                        : cy - w / 2
+            }px`;
+            moon.style.opacity = "1";
+            moon.style.transform = `rotate(${completed ? 0 : 180 * (1 - p)}deg)`;
+            if (moonText) moonText.style.opacity = `${completed ? 1 : p}`;
         };
         placeMoon();
         window.addEventListener("scroll", placeMoon, { passive: true });

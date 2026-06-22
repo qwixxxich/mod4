@@ -283,6 +283,7 @@ main {
 }
 
 #second {
+    position: relative;
     gap: 6vh;
     padding: 6vh 24px;
 }
