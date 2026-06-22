@@ -191,7 +191,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const placeMoon = () => {
             const vw = window.innerWidth;
             const vh = window.innerHeight;
-            const mobile = vw < 768;
+            // Синхронизировано с CSS-брейкпоинтом адаптивной вёрстки.
+            const mobile = vw <= 1024;
             const from = mobile
                 ? { cx: vw * 0.5, cy: vh * 0.26, w: vh * 0.5 }
                 : { cx: vw * 0.02, cy: vh * 0.5, w: vh * 0.72 };
@@ -220,7 +221,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }px`;
             moon.style.zIndex = completed ? "2" : "-1";
             moon.style.opacity = "1";
-            moon.style.transform = `rotate(${completed ? 0 : 180 * (1 - p)}deg)`;
+            moon.style.transform = mobile
+                ? "none"
+                : `rotate(${completed ? 0 : 180 * (1 - p)}deg)`;
             if (moonText) moonText.style.opacity = `${completed ? 1 : p}`;
         };
         placeMoon();
