@@ -9,6 +9,108 @@ document.addEventListener("DOMContentLoaded", () => {
     updateClock();
     setInterval(updateClock, 1000);
 
+    const footerForm = document.querySelector(".footer__form");
+    const footerSuccess = document.querySelector(".footer__success");
+
+    footerForm?.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (!footerForm.reportValidity()) return;
+
+        footerForm.reset();
+        footerSuccess.hidden = false;
+    });
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let smoothScrollFrame = 0;
+    let smoothScrollTarget = window.scrollY;
+    let smoothScrollCurrent = window.scrollY;
+    let smoothScrollLastTime = 0;
+
+    const getMaxScrollY = () => Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight,
+    );
+    const clampScrollY = (value) => Math.min(getMaxScrollY(), Math.max(0, value));
+    const syncSmoothScroll = () => {
+        const scrollY = clampScrollY(window.scrollY);
+        smoothScrollTarget = scrollY;
+        smoothScrollCurrent = scrollY;
+    };
+    const stopSmoothScroll = () => {
+        if (smoothScrollFrame) {
+            cancelAnimationFrame(smoothScrollFrame);
+            smoothScrollFrame = 0;
+        }
+
+        smoothScrollLastTime = 0;
+        syncSmoothScroll();
+    };
+    const getWheelDelta = (event) => {
+        if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) return event.deltaY * 24;
+        if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) return event.deltaY * window.innerHeight * 0.9;
+
+        return event.deltaY;
+    };
+    const hasScrollableAncestor = (node) => {
+        let current = node instanceof Element ? node : null;
+
+        while (current && current !== document.body) {
+            const { overflowY } = getComputedStyle(current);
+            const canScroll = /(auto|scroll|overlay)/.test(overflowY);
+
+            if (canScroll && current.scrollHeight > current.clientHeight + 1) return true;
+
+            current = current.parentElement;
+        }
+
+        return false;
+    };
+    const animateSmoothScroll = (time) => {
+        if (!smoothScrollLastTime) smoothScrollLastTime = time;
+
+        const interpolation = 1 - Math.exp(-(time - smoothScrollLastTime) / 60);
+        smoothScrollCurrent += (smoothScrollTarget - smoothScrollCurrent) * interpolation;
+        smoothScrollCurrent = clampScrollY(smoothScrollCurrent);
+        window.scrollTo(0, smoothScrollCurrent);
+
+        if (Math.abs(smoothScrollTarget - smoothScrollCurrent) < 0.5) {
+            window.scrollTo(0, smoothScrollTarget);
+            smoothScrollFrame = 0;
+            smoothScrollLastTime = 0;
+            syncSmoothScroll();
+            return;
+        }
+
+        smoothScrollLastTime = time;
+        smoothScrollFrame = requestAnimationFrame(animateSmoothScroll);
+    };
+    const handleSmoothWheel = (event) => {
+        if (reducedMotion.matches || event.ctrlKey || hasScrollableAncestor(event.target)) {
+            stopSmoothScroll();
+            return;
+        }
+
+        event.preventDefault();
+
+        if (!smoothScrollFrame) syncSmoothScroll();
+
+        smoothScrollTarget = clampScrollY(smoothScrollTarget + getWheelDelta(event) * 0.7);
+
+        if (!smoothScrollFrame) {
+            smoothScrollCurrent = window.scrollY;
+            smoothScrollLastTime = 0;
+            smoothScrollFrame = requestAnimationFrame(animateSmoothScroll);
+        }
+    };
+
+    window.addEventListener("wheel", handleSmoothWheel, { passive: false });
+    window.addEventListener("scroll", () => {
+        if (!smoothScrollFrame) syncSmoothScroll();
+    }, { passive: true });
+    window.addEventListener("resize", stopSmoothScroll);
+    window.addEventListener("touchstart", stopSmoothScroll, { passive: true });
+
     const orbitArea = document.querySelector(".orbits");
     if (orbitArea) {
         const rings = document.querySelectorAll(".rings .ring");
@@ -132,6 +234,44 @@ document.addEventListener("DOMContentLoaded", () => {
             button.addEventListener("mouseleave", () => {
                 moon.classList.remove("is-highlighted");
             });
+        });
+    }
+
+    const popularCards = document.querySelectorAll(".card[data-product]");
+    const popularDialog = document.querySelector("#popular-dialog");
+    const popularCloseButton = popularDialog?.querySelector(".popular-dialog__close");
+    const popularTitle = popularDialog?.querySelector(".popular-dialog__title");
+    const popularImage = popularDialog?.querySelector(".popular-dialog__media");
+
+    if (popularDialog && popularCloseButton && popularTitle && popularImage) {
+        const openPopularDialog = (card) => {
+            const tube = card.querySelector(".card__tube");
+
+            popularTitle.textContent = card.dataset.product;
+            popularImage.src = tube.src;
+            popularImage.alt = tube.alt;
+            popularDialog.showModal();
+        };
+
+        popularCards.forEach((card) => {
+            card.addEventListener("click", (event) => {
+                if (event.target.closest(".card__add")) return;
+
+                openPopularDialog(card);
+            });
+
+            card.addEventListener("keydown", (event) => {
+                if (event.target.closest(".card__add")) return;
+                if (event.key !== "Enter" && event.key !== " ") return;
+
+                event.preventDefault();
+                openPopularDialog(card);
+            });
+        });
+
+        popularCloseButton.addEventListener("click", () => popularDialog.close());
+        popularDialog.addEventListener("click", (event) => {
+            if (event.target === popularDialog) popularDialog.close();
         });
     }
 });

@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    font-family: "Bounded", sans-serif;
+}
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+    background: #000;
+}
+
+.not-found {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    min-height: 100svh;
+    overflow: hidden;
+    padding: 30vh 24px 24px;
+    background:
+        radial-gradient(circle at 11% 13%, #fff 0 1px, transparent 2px),
+        radial-gradient(circle at 18% 38%, #fff 0 1px, transparent 2px),
+        radial-gradient(circle at 33% 22%, #fff 0 1px, transparent 2px),
+        radial-gradient(circle at 62% 19%, #fff 0 1px, transparent 2px),
+        radial-gradient(circle at 79% 36%, #fff 0 1px, transparent 2px),
+        radial-gradient(circle at 91% 16%, #fff 0 1px, transparent 2px),
+        #000;
+}
+
+.not-found__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: #fff;
+    text-align: center;
+}
+
+.not-found__code {
+    margin: 0;
+    font-size: clamp(80px, 8vw, 128px);
+    font-weight: 600;
+    line-height: 0.9;
+}
+
+.not-found__message {
+    margin: 0;
+    font-size: clamp(12px, 1.2vw, 18px);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.not-found__surface {
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .not-found {
+        padding-top: 27vh;
+    }
+
+    .not-found__content {
+        gap: 12px;
+    }
+
+    .not-found__surface {
+        width: auto;
+        min-width: 900px;
+        height: 44vh;
+        object-fit: cover;
+        object-position: center bottom;
+        transform: translateX(-50%);
+        left: 50%;
+    }
+}

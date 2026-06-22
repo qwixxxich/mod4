@@ -12,10 +12,11 @@
         <header class="navbar">
             <span class="navbar__logo">Astrition</span>
             <nav class="navbar__nav">
-                <a class="navbar__link" href="#">Производитель</a>
-                <a class="navbar__link" href="#">Отзывы</a>
-                <a class="navbar__link" href="#">О нас</a>
-                <a class="navbar__link" href="#">Свяжитесь с нами</a>
+                <a class="navbar__link" href="index.html#first">Сайт</a>
+                <a class="navbar__link" href="404.html">О нас</a>
+                <a class="navbar__link" href="#">Мерч</a>
+                <a class="navbar__link" href="catalog.html">Каталог</a>
+                <a class="navbar__link" href="index.html#third">Новости</a>
             </nav>
         </header>
         <div class="welcome">
@@ -38,7 +39,7 @@
             </div>
             <div class="welcome__meta">
                 <span id="clock">00:00</span>
-                <span>Новый вкус!</span>
+                <span class="welcome__new-flavour">Новый вкус!</span>
                 <span>Одобрено Роскосмосом</span>
             </div>
             <div class="rings-area">
@@ -207,26 +208,47 @@
         </div>
         <h2 class="cards__title">Самые популярные вкусы</h2>
         <div class="cards">
-            <article class="card card--1">
+            <article class="card card--1" data-product="Рибай стейк" tabindex="0" aria-haspopup="dialog">
                 <span class="card__rank">#1</span>
-                <video class="card__img" src="assets/img/welcome-screen/tube.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
-                <p class="card__name">Кит-кат мороженное</p>
-                <p class="card__price">450р</p>
+                <div class="card__product">
+                    <div class="card__ingredients" aria-hidden="true">
+                        <img class="card__ingredient card__ingredient--1" src="assets/img/ingr/rybay/1.png" alt="">
+                        <img class="card__ingredient card__ingredient--2" src="assets/img/ingr/rybay/2.png" alt="">
+                        <img class="card__ingredient card__ingredient--3" src="assets/img/ingr/rybay/3.png" alt="">
+                    </div>
+                    <img class="card__tube" src="assets/img/tubes/rybay.png" alt="Рибай стейк">
+                </div>
+                <p class="card__name">Рибай стейк</p>
+                <button class="card__add" type="button"><span>В корзину</span><span>450 ₽</span></button>
             </article>
-            <article class="card card--2">
+            <article class="card card--2" data-product="Печенье орео" tabindex="0" aria-haspopup="dialog">
                 <span class="card__rank">#2</span>
-                <video class="card__img" src="assets/img/welcome-screen/tube.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
-                <p class="card__name">Мохито клубничный</p>
-                <p class="card__price">450р</p>
+                <div class="card__product">
+                    <div class="card__ingredients" aria-hidden="true">
+                        <img class="card__ingredient card__ingredient--1" src="assets/img/ingr/oreo/1.png" alt="">
+                        <img class="card__ingredient card__ingredient--2" src="assets/img/ingr/oreo/2.png" alt="">
+                        <img class="card__ingredient card__ingredient--3" src="assets/img/ingr/oreo/3.png" alt="">
+                    </div>
+                    <img class="card__tube" src="assets/img/tubes/oreo.png" alt="Печенье орео">
+                </div>
+                <p class="card__name">Печенье орео</p>
+                <button class="card__add" type="button"><span>В корзину</span><span>450 ₽</span></button>
             </article>
-            <article class="card card--3">
+            <article class="card card--3" data-product="Спаржа на гриле" tabindex="0" aria-haspopup="dialog">
                 <span class="card__rank">#3</span>
-                <video class="card__img" src="assets/img/welcome-screen/tube.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
-                <p class="card__name">Стейк-рибай</p>
-                <p class="card__price">450р</p>
+                <div class="card__product">
+                    <div class="card__ingredients" aria-hidden="true">
+                        <img class="card__ingredient card__ingredient--1" src="assets/img/ingr/sparja/1.png" alt="">
+                        <img class="card__ingredient card__ingredient--2" src="assets/img/ingr/sparja/2.png" alt="">
+                        <img class="card__ingredient card__ingredient--3" src="assets/img/ingr/sparja/3.png" alt="">
+                    </div>
+                    <img class="card__tube" src="assets/img/tubes/sparja.png" alt="Спаржа на гриле">
+                </div>
+                <p class="card__name">Спаржа на гриле</p>
+                <button class="card__add" type="button"><span>В корзину</span><span>450 ₽</span></button>
             </article>
         </div>
-        <button class="all-tastes" type="button">Все вкусы</button>
+        <a class="all-tastes" href="catalog.html">Все вкусы</a>
     </section>
     <section class="section" id="third">
         <div class="scene">
@@ -245,6 +267,46 @@
         </div>
     </section>
 </main>
+<dialog class="popular-dialog" id="popular-dialog" aria-labelledby="popular-dialog-title">
+    <button class="popular-dialog__close" type="button" aria-label="Закрыть">×</button>
+    <img class="popular-dialog__media" src="" alt="">
+    <h2 class="popular-dialog__title" id="popular-dialog-title"></h2>
+    <p class="popular-dialog__price">450 ₽</p>
+    <button class="popular-dialog__add" type="button">В корзину</button>
+</dialog>
+<footer class="footer">
+    <div class="footer__left">
+        <nav class="footer__nav" aria-label="Навигация в подвале">
+            <a class="footer__link footer__link--current" href="index.html#first">Сайт</a>
+            <a class="footer__link" href="404.html">О нас</a>
+            <a class="footer__link" href="#">Мерч</a>
+            <a class="footer__link" href="catalog.html">Каталог</a>
+            <a class="footer__link" href="index.html#third">Новости</a>
+        </nav>
+        <form class="footer__form">
+            <label class="footer__label" for="footer-email">Подпишитесь на рассылку</label>
+            <div class="footer__form-row">
+                <div class="footer__email-row">
+                    <input
+                        class="footer__email"
+                        id="footer-email"
+                        type="email"
+                        name="email"
+                        placeholder="example@mail.com"
+                        required
+                    >
+                    <button class="footer__submit" type="submit" aria-label="Подписаться">→</button>
+                </div>
+                <p class="footer__success" role="status" hidden>Спасибо за подписку!</p>
+            </div>
+        </form>
+    </div>
+    <img
+        class="footer__solar"
+        src="assets/img/footer/solar.svg"
+        alt="Схема солнечной системы"
+    >
+</footer>
 <script src="scripts/script.js"></script>
 </body>
 </html>

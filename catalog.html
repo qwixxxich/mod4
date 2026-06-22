@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Ассортимент — Astrition</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/catalog.css">
+</head>
+<body>
+<header class="catalog-header">
+    <a class="catalog-header__logo" href="index.html">Astrition</a>
+    <nav class="catalog-header__nav" aria-label="Основная навигация">
+        <a href="index.html#first">Производитель</a>
+        <a href="index.html#second">Отзывы</a>
+        <a href="404.html">О нас</a>
+        <a href="#footer">Свяжитесь с нами</a>
+    </nav>
+</header>
+<main class="catalog">
+    <h1 class="catalog__title">Ассортимент</h1>
+    <div class="catalog__grid">
+        <article class="catalog-card" data-product="Рибай стейк" tabindex="0" aria-haspopup="dialog">
+            <img class="catalog-card__media" src="assets/img/tubes/rybay.png" alt="Рибай стейк">
+            <h2 class="catalog-card__name">Рибай стейк</h2>
+            <button class="catalog-card__add" type="button"><span>В корзину</span><span>450 ₽</span></button>
+        </article>
+        <article class="catalog-card" data-product="Печенье орео" tabindex="0" aria-haspopup="dialog">
+            <img class="catalog-card__media" src="assets/img/tubes/oreo.png" alt="Печенье орео">
+            <h2 class="catalog-card__name">Печенье орео</h2>
+            <button class="catalog-card__add" type="button"><span>В корзину</span><span>450 ₽</span></button>
+        </article>
+        <article class="catalog-card" data-product="Спаржа на гриле" tabindex="0" aria-haspopup="dialog">
+            <img class="catalog-card__media" src="assets/img/tubes/sparja.png" alt="Спаржа на гриле">
+            <h2 class="catalog-card__name">Спаржа на гриле</h2>
+            <button class="catalog-card__add" type="button"><span>В корзину</span><span>450 ₽</span></button>
+        </article>
+        <article class="catalog-card" data-product="Лимонад" tabindex="0" aria-haspopup="dialog">
+            <img class="catalog-card__media" src="assets/img/tubes/lemonade.png" alt="Лимонад">
+            <h2 class="catalog-card__name">Лимонад</h2>
+            <button class="catalog-card__add" type="button"><span>В корзину</span><span>450 ₽</span></button>
+        </article>
+        <article class="catalog-card" data-product="Шпинат" tabindex="0" aria-haspopup="dialog">
+            <img class="catalog-card__media" src="assets/img/tubes/shpinat.png" alt="Шпинат">
+            <h2 class="catalog-card__name">Шпинат</h2>
+            <button class="catalog-card__add" type="button"><span>В корзину</span><span>450 ₽</span></button>
+        </article>
+    </div>
+</main>
+<footer class="catalog-footer" id="footer">
+    <a href="index.html">Вернуться на главную</a>
+</footer>
+<dialog class="catalog-dialog" id="catalog-dialog" aria-labelledby="catalog-dialog-title">
+    <button class="catalog-dialog__close" type="button" aria-label="Закрыть">×</button>
+    <img class="catalog-dialog__media" src="" alt="">
+    <h2 class="catalog-dialog__title" id="catalog-dialog-title"></h2>
+    <p class="catalog-dialog__price">450 ₽</p>
+    <button class="catalog-dialog__add" type="button">В корзину</button>
+</dialog>
+<script src="scripts/catalog.js"></script>
+</body>
+</html>
